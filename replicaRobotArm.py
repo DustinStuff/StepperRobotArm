@@ -16,6 +16,7 @@ class ReplicaRobotArm:
         self.corrDict = {"X": 0, "Y": 0, "Z": 0}
         self.getCorrValues()
         self.k = 0.002
+        self.k_z = 0.002
 
     def update(self):
         self.updatePosDict()
@@ -43,7 +44,10 @@ class ReplicaRobotArm:
 
     def multiplyPosDict(self):
         for key, value in self.posDict.items():
-            self.posDict[key] = value * self.k 
+            if key == "Z":
+                self.posDict[key] = value * self.k_z
+            else:
+                self.posDict[key] = value * self.k
 
     def printPosDict(self):
         for key, value in self.posDict.items():
